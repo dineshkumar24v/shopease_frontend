@@ -109,7 +109,7 @@ const Home = () => {
                   <div className="relative h-64 bg-gray-200">
                     <img
                       src={
-                        product.images[0] || "https://via.placeholder.com/400"
+                        product.images?.[0] || "https://via.placeholder.com/400"
                       }
                       alt={product.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition"
