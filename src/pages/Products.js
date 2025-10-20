@@ -197,7 +197,7 @@ const Products = () => {
                 </div>
               ))}
             </div>
-          ) : products.length === 0 ? (
+          ) : (products?.length || 0) === 0 ? (
             <div className="text-center py-12">
               <p className="text-gray-500 text-lg">No products found</p>
               <button
@@ -210,7 +210,7 @@ const Products = () => {
           ) : (
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {products.map((product) => (
+                {products?.map((product) => (
                   <div
                     key={product._id}
                     className="bg-white rounded-lg shadow-md overflow-hidden group relative"
@@ -289,13 +289,13 @@ const Products = () => {
                 <div className="mt-8 flex justify-center space-x-2">
                   <button
                     onClick={() => handlePageChange(pagination.page - 1)}
-                    disabled={pagination.page === 1}
+                    disabled={(pagination?.page || 1) === 1}
                     className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Previous
                   </button>
 
-                  {[...Array(pagination.pages)].map((_, i) => (
+                  {[...Array(pagination?.pages || 0)].map((_, i) => (
                     <button
                       key={i + 1}
                       onClick={() => handlePageChange(i + 1)}
@@ -311,7 +311,9 @@ const Products = () => {
 
                   <button
                     onClick={() => handlePageChange(pagination.page + 1)}
-                    disabled={pagination.page === pagination.pages}
+                    disabled={
+                      (pagination?.page || 1) === (pagination?.pages || 1)
+                    }
                     className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Next
