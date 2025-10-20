@@ -181,7 +181,7 @@ const Products = () => {
         <div className="md:col-span-3">
           {/* Results Count */}
           <div className="mb-4 text-gray-600">
-            Showing {products.length} of {pagination.total} products
+            Showing {products?.length || 0} of {pagination?.total || 0} products
           </div>
 
           {loading ? (
