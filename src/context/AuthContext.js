@@ -2,6 +2,8 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 
+const API = process.env.REACT_APP_API_URL;
+
 const AuthContext = createContext();
 
 export const useAuth = () => {
@@ -36,7 +38,7 @@ export const AuthProvider = ({ children }) => {
           ] = `Bearer ${storedToken}`;
 
           // Fetch user data
-          const response = await axios.get("/api/auth/me");
+          const response = await axios.get(`${API}/api/auth/me`);
           setUser(response.data.user);
           setToken(storedToken);
         } catch (error) {
@@ -52,7 +54,10 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post("/api/auth/login", { email, password });
+      const response = await axios.post(`${API}/api/auth/login`, {
+        email,
+        password,
+      });
       const { token, user } = response.data;
 
       localStorage.setItem("token", token);
@@ -72,7 +77,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      const response = await axios.post("/api/auth/register", userData);
+      const response = await axios.post(`${API}/api/auth/register`, userData);
       const { token, user } = response.data;
 
       localStorage.setItem("token", token);
@@ -99,7 +104,7 @@ export const AuthProvider = ({ children }) => {
 
   const updateProfile = async (userData) => {
     try {
-      const response = await axios.put("/api/auth/profile", userData);
+      const response = await axios.put(`${API}/api/auth/profile`, userData);
       setUser(response.data.user);
       return { success: true };
     } catch (error) {

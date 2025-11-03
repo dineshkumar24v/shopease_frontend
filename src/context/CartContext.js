@@ -3,6 +3,8 @@ import axios from "axios";
 import { useAuth } from "./AuthContext";
 import { toast } from "react-toastify";
 
+const API = process.env.REACT_APP_API_URL;
+
 const CartContext = createContext();
 
 export const useCart = () => {
@@ -28,7 +30,7 @@ export const CartProvider = ({ children }) => {
 
   const fetchCart = async () => {
     try {
-      const response = await axios.get("/api/cart");
+      const response = await axios.get(`${API}/api/cart`);
       setCart(response.data.cart);
     } catch (error) {
       console.error("Error fetching cart:", error);
@@ -43,7 +45,7 @@ export const CartProvider = ({ children }) => {
 
     setLoading(true);
     try {
-      const response = await axios.post("/api/cart", { productId, quantity });
+      const response = await axios.post(`${API}/api/cart`, { productId, quantity });
       setCart(response.data.cart);
       toast.success("Item added to cart!");
       return { success: true };
@@ -58,7 +60,7 @@ export const CartProvider = ({ children }) => {
   const updateQuantity = async (productId, quantity) => {
     setLoading(true);
     try {
-      const response = await axios.put(`/api/cart/${productId}`, { quantity });
+      const response = await axios.put(`${API}/api/cart/${productId}`, { quantity });
       setCart(response.data.cart);
       return { success: true };
     } catch (error) {
@@ -72,7 +74,7 @@ export const CartProvider = ({ children }) => {
   const removeFromCart = async (productId) => {
     setLoading(true);
     try {
-      const response = await axios.delete(`/api/cart/${productId}`);
+      const response = await axios.delete(`${API}/api/cart/${productId}`);
       setCart(response.data.cart);
       toast.success("Item removed from cart");
       return { success: true };
@@ -87,7 +89,7 @@ export const CartProvider = ({ children }) => {
   const clearCart = async () => {
     setLoading(true);
     try {
-      await axios.delete("/api/cart");
+      await axios.delete(`${API}/api/cart`);
       setCart({ items: [], total: 0 });
       return { success: true };
     } catch (error) {

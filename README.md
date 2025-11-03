@@ -1,1 +1,0 @@
-# shopease_frontend

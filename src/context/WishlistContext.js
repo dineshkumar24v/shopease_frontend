@@ -3,6 +3,8 @@ import axios from "axios";
 import { useAuth } from "./AuthContext";
 import { toast } from "react-toastify";
 
+const API = process.env.REACT_APP_API_URL;
+
 const WishlistContext = createContext();
 
 export const useWishlist = () => {
@@ -28,7 +30,7 @@ export const WishlistProvider = ({ children }) => {
 
   const fetchWishlist = async () => {
     try {
-      const response = await axios.get("/api/wishlist");
+      const response = await axios.get(`${API}/api/wishlist`);
       setWishlist(response.data.wishlist);
     } catch (error) {
       console.error("Error fetching wishlist:", error);
@@ -43,7 +45,7 @@ export const WishlistProvider = ({ children }) => {
 
     setLoading(true);
     try {
-      const response = await axios.post("/api/wishlist", { productId });
+      const response = await axios.post(`${API}/api/wishlist`, { productId });
       setWishlist(response.data.wishlist);
       toast.success("Added to wishlist!");
       return { success: true };
@@ -58,7 +60,7 @@ export const WishlistProvider = ({ children }) => {
   const removeFromWishlist = async (productId) => {
     setLoading(true);
     try {
-      const response = await axios.delete(`/api/wishlist/${productId}`);
+      const response = await axios.delete(`${API}/api/wishlist/${productId}`);
       setWishlist(response.data.wishlist);
       toast.success("Removed from wishlist");
       return { success: true };
@@ -99,7 +101,7 @@ export const WishlistProvider = ({ children }) => {
   const clearWishlist = async () => {
     setLoading(true);
     try {
-      await axios.delete("/api/wishlist");
+      await axios.delete(`${API}/api/wishlist`);
       setWishlist({ products: [] });
       toast.success("Wishlist cleared");
       return { success: true };
