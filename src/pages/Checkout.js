@@ -12,11 +12,13 @@ import { useCart } from "../context/CartContext";
 import { toast } from "react-toastify";
 import { FaLock } from "react-icons/fa";
 
+const API = process.env.REACT_APP_API_URL;
+
 // Load Stripe
 let stripePromise = null;
 const getStripe = async () => {
   if (!stripePromise) {
-    const response = await axios.get("/api/stripe/config");
+    const response = await axios.get(`${API}/api/stripe/config`);
     stripePromise = loadStripe(response.data.publishableKey);
   }
   return stripePromise;

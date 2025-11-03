@@ -4,6 +4,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { FaEye } from "react-icons/fa";
 
+const API = process.env.REACT_APP_API_URL;
+
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,8 +18,8 @@ const Orders = () => {
   const fetchOrders = async () => {
     try {
       const url = filter
-        ? `/api/orders/admin/all?status=${filter}`
-        : "/api/orders/admin/all";
+        ? `${API}/api/orders/admin/all?status=${filter}`
+        : `${API}/api/orders/admin/all`;
       const response = await axios.get(url);
       setOrders(response.data.orders);
     } catch (error) {

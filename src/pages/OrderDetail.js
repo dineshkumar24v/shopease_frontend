@@ -4,6 +4,8 @@ import axios from "axios";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import { toast } from "react-toastify";
 
+const API = process.env.REACT_APP_API_URL;
+
 const OrderDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -16,7 +18,7 @@ const OrderDetail = () => {
 
   const fetchOrder = async () => {
     try {
-      const response = await axios.get(`/api/orders/${id}`);
+      const response = await axios.get(`${API}/api/orders/${id}`);
       setOrder(response.data.order);
     } catch (error) {
       console.error("Error fetching order:", error);

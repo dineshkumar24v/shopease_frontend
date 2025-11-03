@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { FaBox, FaDollarSign, FaShoppingCart, FaUsers } from "react-icons/fa";
 
+const API = process.env.REACT_APP_API_URL;
+
 const Dashboard = () => {
   const [stats, setStats] = useState({
     totalOrders: 0,
@@ -20,8 +22,8 @@ const Dashboard = () => {
   const fetchDashboardData = async () => {
     try {
       const [ordersRes, productsRes] = await Promise.all([
-        axios.get("/api/orders/admin/all?limit=5"),
-        axios.get("/api/products?limit=1"),
+        axios.get(`${API}/api/orders/admin/all?limit=5`),
+        axios.get(`${API}/api/products?limit=1`),
       ]);
 
       const orders = ordersRes.data.orders;

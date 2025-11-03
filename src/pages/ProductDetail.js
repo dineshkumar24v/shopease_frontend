@@ -13,6 +13,8 @@ import { useWishlist } from "../context/WishlistContext";
 import { useAuth } from "../context/AuthContext";
 import { toast } from "react-toastify";
 
+const API = process.env.REACT_APP_API_URL;
+
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -36,7 +38,7 @@ const ProductDetail = () => {
 
   const fetchProduct = async () => {
     try {
-      const response = await axios.get(`/api/products/${id}`);
+      const response = await axios.get(`${API}/api/products/${id}`);
       setProduct(response.data.product);
     } catch (error) {
       console.error("Error fetching product:", error);
@@ -49,7 +51,7 @@ const ProductDetail = () => {
 
   const fetchReviews = async () => {
     try {
-      const response = await axios.get(`/api/reviews/product/${id}`);
+      const response = await axios.get(`${API}/api/reviews/product/${id}`);
       setReviews(response.data.reviews);
     } catch (error) {
       console.error("Error fetching reviews:", error);
@@ -70,7 +72,7 @@ const ProductDetail = () => {
 
     setSubmittingReview(true);
     try {
-      await axios.post("/api/reviews", {
+      await axios.post(`${API}/api/reviews`, {
         productId: id,
         rating,
         comment: reviewText,

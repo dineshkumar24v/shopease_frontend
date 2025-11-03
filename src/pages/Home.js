@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { FaArrowRight, FaStar, FaShoppingCart } from "react-icons/fa";
 
+const API = process.env.REACT_APP_API_URL;
+
 const Home = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,7 +15,7 @@ const Home = () => {
 
   const fetchFeaturedProducts = async () => {
     try {
-      const response = await axios.get("/api/products?featured=true&limit=6");
+      const response = await axios.get(`${API}/api/products?featured=true&limit=6`);
       setFeaturedProducts(response?.data?.products || []);
     } catch (error) {
       console.error("Error fetching products:", error);

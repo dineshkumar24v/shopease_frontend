@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { FaBox, FaEye } from "react-icons/fa";
 
+const API = process.env.REACT_APP_API_URL;
+
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -13,7 +15,7 @@ const Orders = () => {
 
   const fetchOrders = async () => {
     try {
-      const response = await axios.get("/api/orders");
+      const response = await axios.get(`${API}/api/orders`);
       setOrders(response.data.orders);
     } catch (error) {
       console.error("Error fetching orders:", error);

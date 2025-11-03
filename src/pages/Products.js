@@ -6,6 +6,8 @@ import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 import { toast } from "react-toastify";
 
+const API = process.env.REACT_APP_API_URL;
+
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -34,7 +36,7 @@ const Products = () => {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get("/api/products/categories/list");
+      const response = await axios.get(`${API}/api/products/categories/list`);
       setCategories(response.data.categories);
     } catch (error) {
       console.error("Error fetching categories:", error);
@@ -45,7 +47,7 @@ const Products = () => {
     setLoading(true);
     try {
       const params = new URLSearchParams(searchParams);
-      const response = await axios.get(`/api/products?${params.toString()}`);
+      const response = await axios.get(`${API}/api/products?${params.toString()}`);
       setProducts(response.data.products);
       setPagination({
         page: response.data.page,
