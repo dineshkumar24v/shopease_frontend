@@ -114,15 +114,15 @@ const Footer = () => {
             <p className="text-gray-400 text-sm mb-4">
               Subscribe to get special offers and updates.
             </p>
-            <form className="flex">
+            <form className="flex w-full max-w-full overflow-hidden">
               <input
                 type="email"
                 placeholder="Your email"
-                className="flex-1 px-4 py-2 rounded-l-lg text-gray-800 focus:outline-none"
+                className="flex-1 min-w-0 px-4 py-2 rounded-l-lg text-gray-800 focus:outline-none"
               />
               <button
                 type="submit"
-                className="bg-primary-600 px-4 py-2 rounded-r-lg hover:bg-primary-700 transition"
+                className="bg-primary-600 px-4 py-2 rounded-r-lg hover:bg-primary-700 transition whitespace-nowrap"
               >
                 Subscribe
               </button>
