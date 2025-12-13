@@ -47,7 +47,9 @@ const Products = () => {
     setLoading(true);
     try {
       const params = new URLSearchParams(searchParams);
-      const response = await axios.get(`${API}/api/products?${params.toString()}`);
+      const response = await axios.get(
+        `${API}/api/products?${params.toString()}`
+      );
       setProducts(response.data.products);
       setPagination({
         page: response.data.page,
@@ -88,7 +90,12 @@ const Products = () => {
     const params = new URLSearchParams(searchParams);
     params.set("page", page);
     setSearchParams(params);
-    window.scrollTo(0, 0);
+    // Smooth scroll to top when page changing
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth", // <-- smooth scrolling
+    });
   };
 
   return (
