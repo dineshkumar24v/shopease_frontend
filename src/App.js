@@ -30,6 +30,7 @@ import AdminOrders from "./pages/admin/Orders";
 import NotFound from "./pages/NotFound";
 
 // Protected Route Component
+import ScrollToTop from "./components/ScrollToTop";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
 
@@ -39,6 +40,7 @@ function App() {
       <CartProvider>
         <WishlistProvider>
           <Router>
+            <ScrollToTop />
             <div className="flex flex-col min-h-screen">
               <Navbar />
               <main className="flex-grow bg-gray-50">
@@ -152,19 +154,4 @@ function App() {
 
 export default App;
 
-// / TEMPORARY TEST FILE
-// // Replace your App.js content with this temporarily to test if React works
 
-// import React from 'react';
-
-// function App() {
-//   return (
-//     <div style={{ padding: '50px', textAlign: 'center' }}>
-//       <h1>ShopEase Test</h1>
-//       <p>If you see this, React is working! ✅</p>
-//       <p>Backend API: {process.env.REACT_APP_API_URL || 'http://localhost:5000'}</p>
-//     </div>
-//   );
-// }
-
-// export default App;
