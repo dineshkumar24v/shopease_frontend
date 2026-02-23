@@ -7,6 +7,15 @@ const API = process.env.REACT_APP_API_URL;
 
 const WishlistContext = createContext();
 
+// Helper for Axios with auth token
+const axiosAuth = () => {
+  const token = localStorage.getItem("token");
+  return axios.create({
+    baseURL: API,
+    headers: { Authorization: `Bearer ${token}` },
+  });
+};
+
 export const useWishlist = () => {
   const context = useContext(WishlistContext);
   if (!context) {
@@ -20,6 +29,7 @@ export const WishlistProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const { isAuthenticated } = useAuth();
 
+  // Fetch wishlist when user logs in
   useEffect(() => {
     if (isAuthenticated) {
       fetchWishlist();
@@ -28,15 +38,24 @@ export const WishlistProvider = ({ children }) => {
     }
   }, [isAuthenticated]);
 
+  // Fetch wishlist
   const fetchWishlist = async () => {
     try {
-      const response = await axios.get(`${API}/api/wishlist`);
+      const response = await axiosAuth().get("/api/wishlist");
       setWishlist(response.data.wishlist);
     } catch (error) {
-      console.error("Error fetching wishlist:", error);
+      if (error.response?.status === 401) {
+        toast.error("Session expired. Please login again.");
+        localStorage.removeItem("token");
+        setWishlist({ products: [] });
+        // Optional: call logout() from AuthContext
+      } else {
+        console.error("Error fetching wishlist:", error);
+      }
     }
   };
 
+  // Add product to wishlist
   const addToWishlist = async (productId) => {
     if (!isAuthenticated) {
       toast.error("Please login to add items to wishlist");
@@ -45,35 +64,97 @@ export const WishlistProvider = ({ children }) => {
 
     setLoading(true);
     try {
-      const response = await axios.post(`${API}/api/wishlist`, { productId });
+      const response = await axiosAuth().post("/api/wishlist", { productId });
       setWishlist(response.data.wishlist);
       toast.success("Added to wishlist!");
       return { success: true };
     } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to add to wishlist");
+      if (error.response?.status === 401) {
+        toast.error("Session expired. Please login again.");
+        localStorage.removeItem("token");
+        setWishlist({ products: [] });
+      } else {
+        toast.error(
+          error.response?.data?.message || "Failed to add to wishlist",
+        );
+      }
       return { success: false };
     } finally {
       setLoading(false);
     }
   };
 
+  // Remove product from wishlist
   const removeFromWishlist = async (productId) => {
     setLoading(true);
     try {
-      const response = await axios.delete(`${API}/api/wishlist/${productId}`);
+      const response = await axiosAuth().delete(`/api/wishlist/${productId}`);
       setWishlist(response.data.wishlist);
       toast.success("Removed from wishlist");
       return { success: true };
     } catch (error) {
-      toast.error(
-        error.response?.data?.message || "Failed to remove from wishlist"
-      );
+      if (error.response?.status === 401) {
+        toast.error("Session expired. Please login again.");
+        localStorage.removeItem("token");
+        setWishlist({ products: [] });
+      } else {
+        toast.error(
+          error.response?.data?.message || "Failed to remove from wishlist",
+        );
+      }
       return { success: false };
     } finally {
       setLoading(false);
     }
   };
 
+  // Move product from wishlist to cart
+  const moveToCart = async (productId) => {
+    setLoading(true);
+    try {
+      const response = await axiosAuth().post(
+        `/api/wishlist/${productId}/move-to-cart`,
+      );
+      setWishlist(response.data.wishlist);
+      toast.success("Moved to cart!");
+      return { success: true, cart: response.data.cart };
+    } catch (error) {
+      if (error.response?.status === 401) {
+        toast.error("Session expired. Please login again.");
+        localStorage.removeItem("token");
+        setWishlist({ products: [] });
+      } else {
+        toast.error(error.response?.data?.message || "Failed to move to cart");
+      }
+      return { success: false };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Clear entire wishlist
+  const clearWishlist = async () => {
+    setLoading(true);
+    try {
+      await axiosAuth().delete("/api/wishlist");
+      setWishlist({ products: [] });
+      toast.success("Wishlist cleared");
+      return { success: true };
+    } catch (error) {
+      if (error.response?.status === 401) {
+        toast.error("Session expired. Please login again.");
+        localStorage.removeItem("token");
+        setWishlist({ products: [] });
+      } else {
+        toast.error("Failed to clear wishlist");
+      }
+      return { success: false };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Check if a product is in the wishlist
   const isInWishlist = (productId) => {
     return (
       wishlist.products?.some((item) => item.product?._id === productId) ||
@@ -81,50 +162,17 @@ export const WishlistProvider = ({ children }) => {
     );
   };
 
-  const moveToCart = async (productId) => {
-    setLoading(true);
-    try {
-      const response = await axios.post(
-        `/api/wishlist/${productId}/move-to-cart`
-      );
-      setWishlist(response.data.wishlist);
-      toast.success("Moved to cart!");
-      return { success: true, cart: response.data.cart };
-    } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to move to cart");
-      return { success: false };
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const clearWishlist = async () => {
-    setLoading(true);
-    try {
-      await axios.delete(`${API}/api/wishlist`);
-      setWishlist({ products: [] });
-      toast.success("Wishlist cleared");
-      return { success: true };
-    } catch (error) {
-      toast.error("Failed to clear wishlist", error);
-      return { success: false };
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const getWishlistCount = () => {
-    return wishlist.products?.length || 0;
-  };
+  // Get wishlist count
+  const getWishlistCount = () => wishlist.products?.length || 0;
 
   const value = {
     wishlist,
     loading,
     addToWishlist,
     removeFromWishlist,
-    isInWishlist,
     moveToCart,
     clearWishlist,
+    isInWishlist,
     fetchWishlist,
     getWishlistCount,
   };
