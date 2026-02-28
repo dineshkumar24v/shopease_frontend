@@ -53,7 +53,7 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+      <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Create your account
@@ -70,7 +70,8 @@ const Register = () => {
         </div>
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-4">
+          {/* inputs block with card styling */}
+          <div className="rounded-md shadow-sm space-y-4 bg-white p-6">
             <div>
               <label
                 htmlFor="username"
@@ -201,6 +202,21 @@ const Register = () => {
             </button>
           </div>
         </form>
+
+        {/* Demo Credentials panel for style consistency */}
+        <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+          <p className="text-sm font-medium text-blue-900 mb-2">
+            Demo Credentials:
+          </p>
+          <div className="text-xs text-blue-800 space-y-1">
+            <p>
+              <strong>User:</strong> john@example.com / password123
+            </p>
+            <p>
+              <strong>Admin:</strong> admin@shopease.com / admin123
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
