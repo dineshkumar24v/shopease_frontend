@@ -37,13 +37,13 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-md w-full space-y-8 bg-white/98 p-8 rounded-2xl shadow-2xl border border-indigo-100/50">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-4xl font-bold bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
             Sign in to your account
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="mt-3 text-center text-sm text-gray-500">
             Or{" "}
             <Link
               to="/register"
@@ -55,17 +55,17 @@ const Login = () => {
         </div>
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="rounded-md shadow-sm space-y-4">
+          <div className="rounded-xl space-y-5 bg-gradient-to-b from-slate-50 to-slate-100 p-6 border border-slate-200">
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-semibold text-gray-800 mb-2"
               >
                 Email address
               </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaEnvelope className="text-gray-400" />
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <FaEnvelope className="text-slate-400 group-focus-within:text-primary-600 transition-colors" />
                 </div>
                 <input
                   id="email"
@@ -74,8 +74,8 @@ const Login = () => {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  className="appearance-none rounded-lg relative block w-full pl-10 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm"
-                  placeholder="Email address"
+                  className="appearance-none rounded-lg w-full pl-11 pr-4 py-3 bg-white border border-slate-300 placeholder-slate-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all sm:text-sm shadow-sm hover:border-slate-400"
+                  placeholder="Enter your email"
                 />
               </div>
             </div>
@@ -83,13 +83,13 @@ const Login = () => {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-1"
+                className="block text-sm font-semibold text-gray-800 mb-2"
               >
                 Password
               </label>
-              <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaLock className="text-gray-400" />
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <FaLock className="text-slate-400 group-focus-within:text-primary-600 transition-colors" />
                 </div>
                 <input
                   id="password"
@@ -98,24 +98,24 @@ const Login = () => {
                   required
                   value={formData.password}
                   onChange={handleChange}
-                  className="appearance-none rounded-lg relative block w-full pl-10 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary-500 focus:border-primary-500 focus:z-10 sm:text-sm"
-                  placeholder="Password"
+                  className="appearance-none rounded-lg w-full pl-11 pr-4 py-3 bg-white border border-slate-300 placeholder-slate-400 text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 transition-all sm:text-sm shadow-sm hover:border-slate-400"
+                  placeholder="Enter your password"
                 />
               </div>
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between pt-2">
             <div className="flex items-center">
               <input
                 id="remember-me"
                 name="remember-me"
                 type="checkbox"
-                className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
+                className="h-5 w-5 text-primary-600 focus:ring-2 focus:ring-primary-500/30 border-slate-300 rounded-md cursor-pointer"
               />
               <label
                 htmlFor="remember-me"
-                className="ml-2 block text-sm text-gray-900"
+                className="ml-3 block text-sm text-gray-700 font-medium"
               >
                 Remember me
               </label>
@@ -124,18 +124,18 @@ const Login = () => {
             <div className="text-sm">
               <a
                 href="#"
-                className="font-medium text-primary-600 hover:text-primary-500"
+                className="font-semibold text-primary-600 hover:text-primary-700 transition-colors"
               >
                 Forgot password?
               </a>
             </div>
           </div>
 
-          <div>
+          <div className="pt-4">
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:bg-gray-400 disabled:cursor-not-allowed"
+              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-semibold rounded-lg text-white bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-xl"
             >
               {loading ? (
                 <>
@@ -149,17 +149,19 @@ const Login = () => {
           </div>
         </form>
 
-        {/* Demo Credentials */}
-        <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-          <p className="text-sm font-medium text-blue-900 mb-2">
-            Demo Credentials:
+        {/* Demo Credentials panel with modern styling */}
+        <div className="mt-6 p-5 bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-50 border border-indigo-200/50 rounded-xl shadow-sm">
+          <p className="text-sm font-bold text-indigo-900 mb-3">
+            🔐 Demo Credentials
           </p>
-          <div className="text-xs text-blue-800 space-y-1">
-            <p>
-              <strong>User:</strong> john@example.com / password123
+          <div className="text-xs text-indigo-800 space-y-2">
+            <p className="flex items-start gap-2">
+              <span className="font-semibold min-w-fit">User:</span>
+              <span>john@example.com / password123</span>
             </p>
-            <p>
-              <strong>Admin:</strong> admin@shopease.com / admin123
+            <p className="flex items-start gap-2">
+              <span className="font-semibold min-w-fit">Admin:</span>
+              <span>admin@shopease.com / admin123</span>
             </p>
           </div>
         </div>
