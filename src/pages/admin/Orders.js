@@ -152,7 +152,7 @@ const Orders = () => {
                           handleStatusChange(order._id, e.target.value)
                         }
                         className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(
-                          order.status
+                          order.status,
                         )} border-none focus:ring-2 focus:ring-primary-500`}
                       >
                         <option value="Pending">Pending</option>
