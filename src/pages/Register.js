@@ -182,12 +182,13 @@ const Register = () => {
               className="ml-3 block text-sm text-gray-700 font-medium"
             >
               I agree to the{" "}
-              <a
-                href="#"
-                className="text-primary-600 font-semibold hover:text-primary-700 transition-colors"
+              <button
+                type="button"
+                onClick={() => window.open('/terms', '_blank')}
+                className="text-primary-600 font-semibold hover:text-primary-700 transition-colors cursor-pointer bg-none border-none p-0"
               >
                 Terms and Conditions
-              </a>
+              </button>
             </label>
           </div>
 
