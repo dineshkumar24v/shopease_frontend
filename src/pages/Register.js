@@ -184,7 +184,7 @@ const Register = () => {
               I agree to the{" "}
               <button
                 type="button"
-                onClick={() => window.open('/terms', '_blank')}
+                onClick={() => window.open("/terms", "_blank")}
                 className="text-primary-600 font-semibold hover:text-primary-700 transition-colors cursor-pointer bg-none border-none p-0"
               >
                 Terms and Conditions
