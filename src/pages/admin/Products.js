@@ -13,7 +13,7 @@ const Orders = () => {
 
   useEffect(() => {
     fetchOrders();
-  }, [filter]);
+  }, [filter, fetchOrders]);
 
   const fetchOrders = async () => {
     try {
