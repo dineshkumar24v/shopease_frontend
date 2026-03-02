@@ -91,7 +91,7 @@ const OrderDetail = () => {
           </div>
           <span
             className={`px-4 py-2 rounded-full text-sm font-semibold ${getStatusColor(
-              order.status
+              order.status,
             )}`}
           >
             {order.status}
