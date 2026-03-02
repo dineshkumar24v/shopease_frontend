@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { FaArrowRight, FaStar, FaShoppingCart } from "react-icons/fa";
+import { FaArrowRight, FaStar } from "react-icons/fa";
 
 const API = process.env.REACT_APP_API_URL;
 

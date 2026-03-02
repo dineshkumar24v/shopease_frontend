@@ -122,12 +122,11 @@ const Login = () => {
             </div>
 
             <div className="text-sm">
-              <a
-                href="#"
-                className="font-semibold text-primary-600 hover:text-primary-700 transition-colors"
+              <button
+                className="font-semibold text-primary-600 hover:text-primary-700 transition-colors bg-none border-none cursor-pointer p-0"
               >
                 Forgot password?
-              </a>
+              </button>
             </div>
           </div>
 

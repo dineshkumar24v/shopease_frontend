@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { FaStar, FaHeart, FaShoppingCart, FaFilter } from "react-icons/fa";
@@ -26,26 +26,7 @@ const Products = () => {
   const { addToCart } = useCart();
   const { addToWishlist, isInWishlist } = useWishlist();
 
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  useEffect(() => {
-    const newFilters = {
-      search: searchParams.get("search") || "",
-      category: searchParams.get("category") || "",
-      sort: searchParams.get("sort") || "",
-      minPrice: searchParams.get("minPrice") || "",
-      maxPrice: searchParams.get("maxPrice") || "",
-    };
-    setFilters(newFilters);
-  }, [searchParams]);
-
-  useEffect(() => {
-    fetchProducts();
-  }, [filters, searchParams]);
-
-  const fetchCategories = async () => {
+  const fetchCategories = useCallback(async () => {
     try {
       const response = await axios.get(`${API}/api/products/categories`);
       setCategories(response.data.categories || response.data);
@@ -54,9 +35,9 @@ const Products = () => {
       setCategories([]);
       toast.error("Failed to load categories");
     }
-  };
+  }, []);
 
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     setLoading(true);
     try {
       const params = new URLSearchParams();
@@ -83,7 +64,26 @@ const Products = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filters, searchParams]);
+
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
+
+  useEffect(() => {
+    const newFilters = {
+      search: searchParams.get("search") || "",
+      category: searchParams.get("category") || "",
+      sort: searchParams.get("sort") || "",
+      minPrice: searchParams.get("minPrice") || "",
+      maxPrice: searchParams.get("maxPrice") || "",
+    };
+    setFilters(newFilters);
+  }, [searchParams]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
 
   const handleFilterChange = (key, value) => {
     const newFilters = { ...filters, [key]: value };

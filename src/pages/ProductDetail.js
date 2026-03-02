@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
@@ -31,12 +31,7 @@ const ProductDetail = () => {
   const { addToWishlist, isInWishlist } = useWishlist();
   const { isAuthenticated } = useAuth();
 
-  useEffect(() => {
-    fetchProduct();
-    fetchReviews();
-  }, [id]);
-
-  const fetchProduct = async () => {
+  const fetchProduct = useCallback(async () => {
     try {
       const response = await axios.get(`${API}/api/products/${id}`);
       setProduct(response.data.product);
@@ -47,16 +42,21 @@ const ProductDetail = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [id, navigate]);
 
-  const fetchReviews = async () => {
+  const fetchReviews = useCallback(async () => {
     try {
       const response = await axios.get(`${API}/api/reviews/product/${id}`);
       setReviews(response.data.reviews);
     } catch (error) {
       console.error("Error fetching reviews:", error);
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    fetchProduct();
+    fetchReviews();
+  }, [fetchProduct, fetchReviews]);
 
   const handleAddToCart = () => {
     addToCart(id, quantity);

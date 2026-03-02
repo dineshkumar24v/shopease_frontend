@@ -15,18 +15,18 @@ const Footer = () => {
               affordable prices.
             </p>
             <div className="flex space-x-4 mt-4">
-              <a href="#" className="text-gray-400 hover:text-white transition">
+              <button className="text-gray-400 hover:text-white transition bg-none border-none cursor-pointer p-0">
                 <FaFacebook className="text-xl" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition">
+              </button>
+              <button className="text-gray-400 hover:text-white transition bg-none border-none cursor-pointer p-0">
                 <FaTwitter className="text-xl" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition">
+              </button>
+              <button className="text-gray-400 hover:text-white transition bg-none border-none cursor-pointer p-0">
                 <FaInstagram className="text-xl" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition">
+              </button>
+              <button className="text-gray-400 hover:text-white transition bg-none border-none cursor-pointer p-0">
                 <FaLinkedin className="text-xl" />
-              </a>
+              </button>
             </div>
           </div>
 
@@ -74,36 +74,24 @@ const Footer = () => {
             <h3 className="text-lg font-semibold mb-4">Customer Service</h3>
             <ul className="space-y-2">
               <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition"
-                >
+                <button className="text-gray-400 hover:text-white transition bg-none border-none cursor-pointer p-0 text-left">
                   Contact Us
-                </a>
+                </button>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition"
-                >
+                <button className="text-gray-400 hover:text-white transition bg-none border-none cursor-pointer p-0 text-left">
                   Shipping Policy
-                </a>
+                </button>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition"
-                >
+                <button className="text-gray-400 hover:text-white transition bg-none border-none cursor-pointer p-0 text-left">
                   Returns & Exchanges
-                </a>
+                </button>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="text-gray-400 hover:text-white transition"
-                >
+                <button className="text-gray-400 hover:text-white transition bg-none border-none cursor-pointer p-0 text-left">
                   FAQ
-                </a>
+                </button>
               </li>
             </ul>
           </div>
