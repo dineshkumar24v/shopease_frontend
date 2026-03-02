@@ -31,24 +31,45 @@ const Products = () => {
   }, []);
 
   useEffect(() => {
-    fetchProducts();
+    const newFilters = {
+      search: searchParams.get("search") || "",
+      category: searchParams.get("category") || "",
+      sort: searchParams.get("sort") || "",
+      minPrice: searchParams.get("minPrice") || "",
+      maxPrice: searchParams.get("maxPrice") || "",
+    };
+    setFilters(newFilters);
   }, [searchParams]);
+
+  useEffect(() => {
+    fetchProducts();
+  }, [filters, searchParams]);
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get(`${API}/api/products/categories/list`);
-      setCategories(response.data.categories);
+      const response = await axios.get(`${API}/api/products/categories`);
+      setCategories(response.data.categories || response.data);
     } catch (error) {
       console.error("Error fetching categories:", error);
+      setCategories([]);
+      toast.error("Failed to load categories");
     }
   };
 
   const fetchProducts = async () => {
     setLoading(true);
     try {
-      const params = new URLSearchParams(searchParams);
+      const params = new URLSearchParams();
+      // Add filters
+      Object.keys(filters).forEach((key) => {
+        if (filters[key]) params.set(key, filters[key]);
+      });
+      // Add page parameter from URL
+      const page = searchParams.get("page") || "1";
+      params.set("page", page);
+
       const response = await axios.get(
-        `${API}/api/products?${params.toString()}`
+        `${API}/api/products?${params.toString()}`,
       );
       setProducts(response.data.products);
       setPagination({
@@ -90,7 +111,7 @@ const Products = () => {
     const params = new URLSearchParams(searchParams);
     params.set("page", page);
     setSearchParams(params);
-    // Smooth scroll to top when page changing
+    // Smooth scroll to top
     window.scrollTo({
       top: 0,
       left: 0,
