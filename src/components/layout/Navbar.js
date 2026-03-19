@@ -68,7 +68,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-6">
             <Link
               to="/products"
-              className="text-gray-700 hover:text-primary-600 transition"
+              className="text-gray-700 hover:text-primary-600 transition hover:scale-105 hover:font-bold"
             >
               Products
             </Link>
