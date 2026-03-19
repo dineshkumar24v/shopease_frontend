@@ -60,7 +60,7 @@ const Home = () => {
               <Link
                 key={category}
                 to={`/products?category=${category}`}
-                className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition text-center"
+                className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition text-center hover:bg-violet-100"
               >
                 <div className="text-4xl mb-4">
                   {category === "Electronics" && "💻"}
