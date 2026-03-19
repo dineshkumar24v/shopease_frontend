@@ -141,13 +141,13 @@ const Navbar = () => {
               <>
                 <Link
                   to="/login"
-                  className="text-gray-700 hover:text-primary-600 transition"
+                  className="text-gray-700 hover:text-primary-600 transition hover:scale-105 hover:font-bold"
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
-                  className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition hover:scale-105"
+                  className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition hover:scale-105 hover:font-bold"
                 >
                   Sign Up
                 </Link>
